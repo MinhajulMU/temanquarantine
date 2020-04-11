@@ -6,30 +6,13 @@
  */
 
 
-
 !function($) {
     "use strict";
 
     var MainApp = function() {};
 
-    MainApp.prototype.initNavbar = function () {
-
-        $('.navbar-toggle').on('click', function (event) {
-            $(this).toggleClass('open');
-            $('#navigation').slideToggle(400);
-        });
-
-        $('.navigation-menu>li').slice(-2).addClass('last-elements');
-
-        $('.navigation-menu li.has-submenu a[href="#"]').on('click', function (e) {
-            if ($(window).width() < 992) {
-                e.preventDefault();
-                $(this).parent('li').toggleClass('open').find('.submenu:first').toggleClass('open');
-            }
-        });
-    },
-    MainApp.prototype.initScrollbar = function () {
-        $('.slimscroll').slimScroll({
+    MainApp.prototype.intSlimscrollmenu = function () {
+        $('.slimscroll-menu').slimscroll({
             height: 'auto',
             position: 'right',
             size: "7px",
@@ -37,18 +20,55 @@
             wheelStep: 5,
             touchScrollStep: 50
         });
-    }
-    // === fo,llowing js will activate the menu in left side bar based on url ====
-    MainApp.prototype.initMenuItem = function () {
-        $(".navigation-menu a").each(function () {
+    },
+    MainApp.prototype.initSlimscroll = function () {
+        $('.slimscroll').slimscroll({
+            height: 'auto',
+            position: 'right',
+            size: "5px",
+            color: '#9ea5ab',
+            touchScrollStep: 50
+        });
+    },
+
+    MainApp.prototype.initMetisMenu = function () {
+        //metis menu
+        $("#side-menu").metisMenu();
+    },
+
+    MainApp.prototype.initLeftMenuCollapse = function () {
+        // Left menu collapse
+        $('.button-menu-mobile').on('click', function (event) {
+            event.preventDefault();
+            $("body").toggleClass("enlarged");
+        });
+    },
+
+    MainApp.prototype.initEnlarge = function () {
+        if ($(window).width() < 1025) {
+            $('body').addClass('enlarged');
+        } else {
+            if ($('body').data('keep-enlarged') != true)
+                $('body').removeClass('enlarged');
+        }
+    },
+
+    MainApp.prototype.initActiveMenu = function () {
+        // === following js will activate the menu in left side bar based on url ====
+        $("#sidebar-menu a").each(function () {
             var pageUrl = window.location.href.split(/[?#]/)[0];
-            if (this.href == pageUrl) { 
+            if (this.href == pageUrl) {
+                $(this).addClass("active");
                 $(this).parent().addClass("active"); // add active to li of the current link
-                $(this).parent().parent().parent().addClass("active"); // add active class to an anchor
-                $(this).parent().parent().parent().parent().parent().addClass("active"); // add active class to an anchor
+                $(this).parent().parent().addClass("in");
+                $(this).parent().parent().prev().addClass("active"); // add active class to an anchor
+                $(this).parent().parent().parent().addClass("active");
+                $(this).parent().parent().parent().parent().addClass("in"); // add active to li of the current link
+                $(this).parent().parent().parent().parent().parent().addClass("active");
             }
         });
     },
+
     MainApp.prototype.initComponents = function () {
         $('[data-toggle="tooltip"]').tooltip();
         $('[data-toggle="popover"]').popover();
@@ -72,9 +92,12 @@
     },
 
     MainApp.prototype.init = function () {
-        this.initNavbar();
-        this.initScrollbar();
-        this.initMenuItem();
+        this.intSlimscrollmenu();
+        this.initSlimscroll();
+        this.initMetisMenu();
+        this.initLeftMenuCollapse();
+        this.initEnlarge();
+        this.initActiveMenu();
         this.initComponents();
         this.initHeaderCharts();
         Waves.init();

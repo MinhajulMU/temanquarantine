@@ -12,11 +12,11 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('components.blank');
 });
 
 Auth::routes();
 Route::get('/tes',function(){
-    return view('components.login');
+    return view('components.blank');
 });
 Route::get('/home', 'HomeController@index')->name('home');

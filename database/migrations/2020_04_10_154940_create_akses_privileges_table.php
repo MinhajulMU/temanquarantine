@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class DummyClass extends Migration
+class CreateAksesPrivilegesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class DummyClass extends Migration
      */
     public function up()
     {
-        Schema::create('DummyTable', function (Blueprint $table) {
-            $table->string('id',36)->primary();
-            $table->timestamp('deleted_at')->nullable();
+        Schema::create('akses_privileges', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->integer('id_role');
+            $table->integer('id_menu');
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ class DummyClass extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('DummyTable');
+        Schema::dropIfExists('akses_privileges');
     }
 }
