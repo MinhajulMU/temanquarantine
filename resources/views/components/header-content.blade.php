@@ -1,1 +1,1 @@
-<h4 class="page-title">Blank page</h4>
+<h4 class="page-title">{{ $title }} </h4>

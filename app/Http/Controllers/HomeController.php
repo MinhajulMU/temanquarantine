@@ -11,6 +11,9 @@ class HomeController extends Controller
      *
      * @return void
      */
+    protected $data = array(
+        'title' => 'Dashboard'
+    );
     public function __construct()
     {
         $this->middleware('auth');
@@ -23,6 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('components.blank');
+        $data = $this->data;   
+        return view('components.blank',$data);
     }
 }

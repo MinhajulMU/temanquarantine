@@ -8,8 +8,13 @@
                         <ul class="metismenu" id="side-menu">
                             <li class="menu-title">Main</li>
                             <li>
-                                <a href="index.html" class="waves-effect">
+                                <a href="{{ route('home') }}" class="waves-effect">
                                     <i class="mdi mdi-home"></i><span class="badge badge-primary float-right">3</span> <span> Dashboard </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('user.index') }} " class="waves-effect">
+                                    <i class="fa fa-users"></i> <span> Users</span>
                                 </a>
                             </li>
 
