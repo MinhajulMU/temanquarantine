@@ -11,6 +11,8 @@
 |
 */
 
+use Telegram\Bot\Keyboard\Keyboard;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -49,9 +51,9 @@ Route::post('/telegram/web/hook',function(){
         $text .= "Update Terakhir <i>".date("d-M-Y H:i",strtotime($lastUpdate))."</i> \n";
         $text .= "\n";
         $text .= "Total Kasus: <b>".$kasus['jumlahKasus']."</b> \n";
-        $text .= "Pasien Sembuh: <b>".$kasus['sembuh']."</b> \n";
+        $text .= "Pasien Sembuh: <b>".$kasus['sembuh']." 💚</b> \n";
         $text .= "Pasien dalam Perawatan <b>".$kasus['perawatan']."</b> \n";
-        $text .= "Pasien Meninggal <b>".$kasus['meninggal']."</b> \n";
+        $text .= "Pasien Meninggal <b>".$kasus['meninggal']."😢</b> \n";
         $text .= "\n";
         $text .= "Tetap Semangat ya kak, kalau nggak ada keperluan keluar kalau bisa jangan keluar rumah dulu 🙅🏻 \n";
         $text .= "<b>#StayAtHome</b> \n";
@@ -128,6 +130,70 @@ Route::post('/telegram/web/hook',function(){
                 'parse_mode' => 'html'
             ]);
         }
+    }else if($message == 'F' || $message == 'f'){
+        
+        $keyboard = Keyboard::make()
+        ->inline()
+        ->row(
+            Keyboard::inlineButton(['text' => 'Bantu Sesama Lawan Covid19', 'url' => 'https://kitabisa.com/campaign/bantuekonomiwarga'])
+        );
+        $text = [
+            "Halo Kak 👩🏻, Penyebaran virus corona di Indonesia terus meluas. Dampak virus ini sangat mengkhawatirkan: Ribuan orang positif dan dalam pengawasan, sementara ratusan lainnya meninggal dunia. Ini jelas kabar buruk. Apalagi, angka orang yang positif corona terus meningkat dari hari ke hari.  \n",
+            " Melalui galang dana ini, kami mengajak kamu dan kita semua untuk membantu kebutuhan ekonomi masyarakat kecil dan pekerja informal yang rawan terdampak Corona. \n",
+            
+        ];
+        foreach ($text as $key => $value) {
+            # code...
+            if ($key == count($text)-1) {
+                # code...
+                $response = Telegram::sendMessage([
+                    'chat_id' => $chat_id, 
+                    'text' => $value,
+                    'parse_mode' => 'html', 
+                    'reply_markup' => $keyboard
+                ]);
+            }else{
+                $response = Telegram::sendMessage([
+                    'chat_id' => $chat_id, 
+                    'text' => $value,
+                    'parse_mode' => 'html'
+                ]);
+            }
+
+        }
+    }else if($message == 'G' || $message == 'g'){
+        
+        $keyboard = Keyboard::make()
+        ->inline()
+        ->row(
+            Keyboard::inlineButton(['text' => 'Official Website Covid19', 'url' => 'https://www.covid19.go.id'])
+        );
+        $text = [
+            "Halo Kak 👧🏻, Sedang ingin Konsultasi atau ingin mendapat bantuan segera karena ada gejala Covid19 ?  \n",
+            "Hubungi 0811 333 99 000 atau Hotline <b>119</b> \n",
+            "Mari saling melindungi dari virus corona dengan saling membagikan informasi kontak ini \n",
+            "Kunjungi Official Website https://www.covid19.go.id \n",
+            
+        ];
+        foreach ($text as $key => $value) {
+            # code...
+            if ($key == count($text)-1) {
+                # code...
+                $response = Telegram::sendMessage([
+                    'chat_id' => $chat_id, 
+                    'text' => $value,
+                    'parse_mode' => 'html', 
+                    'reply_markup' => $keyboard
+                ]);
+            }else{
+                $response = Telegram::sendMessage([
+                    'chat_id' => $chat_id, 
+                    'text' => $value,
+                    'parse_mode' => 'html'
+                ]);
+            }
+
+        }
     }
     else{
         if ($message != '/start' && $message != '/stop' && $message != '/help' ) {
@@ -187,6 +253,10 @@ Route::get('/cek2',function(){
     dd($kasus['meninggal']);
 });
 Route::get('/cek3',function(){
-    $user = \App\Model\TelegramUser::where('chat_id','1222')->get();
-    dd(count($user));
+    $users = new \App\Model\Common\TelegramUser();
+    $users->chat_id = "ded";
+    $users->username = "ded";
+    $users->firstname = "ede";
+    $users->lastname = "sw";
+    $users->save();
 });

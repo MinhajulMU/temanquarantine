@@ -16,7 +16,8 @@ class CreateTelegramUserTable extends Migration
         Schema::create('telegram_user', function (Blueprint $table) {
             $table->string('id',36)->primary();
             $table->string('chat_id');
-            $table->string('first_name');
+            $table->string('firstname')->nullable();
+            $table->string('lastname')->nullable();
             $table->string('username');
             $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
