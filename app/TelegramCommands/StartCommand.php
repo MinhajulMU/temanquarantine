@@ -28,7 +28,7 @@ class StartCommand extends Command
         $tg_username = $this->getUpdate()->getChat()->getUsername();
         $tg_chat_id = $this->getUpdate()->getChat()->getId();
 
-        $name = $this->getUpdate()->getChat()->getFirstName()." ".$this->getUpdate()->getChat()->getSecondName();
+        $name = $this->getUpdate()->getChat()->getFirstName()." ".$this->getUpdate()->getChat()->getLastName();
         $user = \App\Model\Common\TelegramUser::where('chat_id',$tg_chat_id)->get();
         if (count($user) == 0) {
             # code...
@@ -36,7 +36,7 @@ class StartCommand extends Command
             $users->chat_id = $tg_chat_id;
             $users->username = $tg_username;
             $users->firstname = $this->getUpdate()->getChat()->getFirstName();
-            $users->lastname = $this->getUpdate()->getChat()->getSecondName();
+            $users->lastname = $this->getUpdate()->getChat()->getLastName();
             $users->save();
         }
         $text  = 'Halo Kakak, <b>'.$name."</b> 👩🏻\n";
@@ -63,7 +63,7 @@ class StartCommand extends Command
         // }
         $this->replyWithMessage(['text' => $text,'parse_mode'=>'html']);
 
-        Log::info($tg_chat_id);
+        
         
     }
     
