@@ -22,4 +22,4 @@ this application uses the telegram chat application so you must first install te
 
 1. type / start to start and see other commands. <br />
 2. ketik /help untuk melihat perintah lainnya. <br />
-3. test ketik perintah A,B, C, D, E, F or G untuk melihat hasilnya.
+3. test type command A, B, C, D, E, F or G to see the results.
